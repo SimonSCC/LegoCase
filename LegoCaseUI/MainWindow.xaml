@@ -1,0 +1,31 @@
+﻿<Window x:Class="LegoCaseUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LegoCaseUI" 
+
+        mc:Ignorable="d"
+        Title="MainWindow" Background="AliceBlue" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="10">
+                <TextBlock Text="Select vendor"></TextBlock>
+                <ComboBox Name="Vendors" ItemsSource="{Binding MaterialVendorDataObj.Vendors}" SelectionChanged="Vendors_SelectionChanged">
+
+
+                </ComboBox>
+                <ListView Margin="0 10 0 0" Height="250" ItemsSource="{Binding MaterialsFiltered}"></ListView>
+
+                <TextBlock Text="Select material"></TextBlock>
+                <ComboBox Name="Materials" ItemsSource="{Binding AllMaterialNames}" SelectionChanged="Materials_SelectionChanged"></ComboBox>
+                <TextBlock Text="Cheapest option: "></TextBlock>
+                <Border Padding="10" BorderThickness="1" BorderBrush="Black"> 
+                <TextBlock Text="{Binding CheapestMaterialFromVendor}"></TextBlock>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>
