@@ -31,6 +31,19 @@ namespace LegoCaseUI.ViewModels
             }
         }
 
+        private VendorWithMaterial fastestMaterialFromVendor;
+
+        public VendorWithMaterial FastestMaterialFromVendor
+        {
+            get { return fastestMaterialFromVendor; }
+            set
+            {
+                fastestMaterialFromVendor = value;
+                OnPropertyChanged(nameof(FastestMaterialFromVendor));
+            }
+        }
+
+
 
 
         private readonly JsonService _jsonService;
@@ -39,6 +52,7 @@ namespace LegoCaseUI.ViewModels
 
         public ICommand FilterByVendorIDCommand { get; private set; }
         public ICommand GetCheapestMaterialCommand { get; private set; }
+        public ICommand GetFastestMaterialCommand { get; private set; }
         public MainViewModel()
         {
             _jsonService = new JsonService();
@@ -50,6 +64,7 @@ namespace LegoCaseUI.ViewModels
             AllMaterialNames = _materialFilter.GetOneOfEachMaterialName();
             FilterByVendorIDCommand = new FilterMaterialsCommand(this, FilterByVendorId);
             GetCheapestMaterialCommand = new DelegateCommand(GetCheapestMaterial);
+            GetFastestMaterialCommand = new DelegateCommand(GetFastestMaterial);
 
 
         }
@@ -67,14 +82,29 @@ namespace LegoCaseUI.ViewModels
 
         private void GetCheapestMaterial(object parameter)
         {
-            if (String.IsNullOrEmpty((string)parameter))
+            string matName = (string)parameter;
+            if (String.IsNullOrEmpty(matName))
             {
                 Console.WriteLine("Material name is null");
                 return;
             }
-            List<Material> materialByName = _materialFilter.GetMaterialsByName((string)parameter);
+            List<Material> materialByName = _materialFilter.GetMaterialsByName(matName);
             _materialFilter.SortByPricePerUnit(materialByName);
             CheapestMaterialFromVendor = new VendorWithMaterial(materialByName[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == materialByName[0].VendorID).First());
+        }
+
+        private void GetFastestMaterial(object parameter)
+        {
+            string matName = (string)parameter;
+
+            if (String.IsNullOrEmpty(matName))
+            {
+                Console.WriteLine("Material name is null");
+                return;
+            }
+            List<Material> materialByName = _materialFilter.GetMaterialsByName(matName);
+            _materialFilter.SortByFastestDelivery(materialByName);
+            FastestMaterialFromVendor = new VendorWithMaterial(materialByName[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == materialByName[0].VendorID).First());
         }
 
 

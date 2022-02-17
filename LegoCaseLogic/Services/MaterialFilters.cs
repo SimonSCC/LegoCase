@@ -37,7 +37,10 @@ namespace LegoCaseLogic.Services
             input.Sort(new MaterialPriceComparer());
         }
 
-
+        public void SortByFastestDelivery(List<Material> input)
+        {
+            input.Sort(new MaterialByFastestDeliveryComparer());
+        }
     }
     
 

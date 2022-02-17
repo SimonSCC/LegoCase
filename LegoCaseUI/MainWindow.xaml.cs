@@ -37,6 +37,7 @@ namespace LegoCaseUI
         {
             string nameOfMat = (string)((ComboBox)sender).SelectedItem;
             ((MainViewModel)this.DataContext).GetCheapestMaterialCommand.Execute(nameOfMat);
+            ((MainViewModel)this.DataContext).GetFastestMaterialCommand.Execute(nameOfMat);
 
 
         }

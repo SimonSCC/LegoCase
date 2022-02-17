@@ -42,6 +42,10 @@ Could be:
     "DeliveryTimeDays": 17
 
 
+Further development would include API connection to retrieve actual exchange rates.
+Also include in display a uniform value for easier manual comparison.
+
+
         
 
  

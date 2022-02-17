@@ -19,11 +19,17 @@
 
                 <TextBlock Text="Select material"></TextBlock>
                 <ComboBox Name="Materials" ItemsSource="{Binding AllMaterialNames}" SelectionChanged="Materials_SelectionChanged"></ComboBox>
-                <TextBlock Text="Cheapest option: "></TextBlock>
+                
+                <TextBlock Text="Cheapest vendor: "></TextBlock>
                 <Border Padding="10" BorderThickness="1" BorderBrush="Black"> 
-                <TextBlock Text="{Binding CheapestMaterialFromVendor}"></TextBlock>
+                <TextBlock Text="{Binding CheapestMaterialFromVendor}"></TextBlock>               
+                    </Border>
+                <TextBlock Text="Fastest vendor: "></TextBlock>
+                <Border Padding="10" BorderThickness="1" BorderBrush="Black">
+                    <TextBlock Text="{Binding FastestMaterialFromVendor}"></TextBlock>
                 </Border>
 
+                <TextBlock Text="Best overall choice: "></TextBlock>
             </StackPanel>
         </ScrollViewer>
 
