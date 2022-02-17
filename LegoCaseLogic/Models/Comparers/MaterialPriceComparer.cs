@@ -30,13 +30,13 @@ namespace LegoCaseLogic.Models.Comparers
 
         public double ConvertToDKK(Material input, double pricePerUnitInKg)
         {
-            return input.PricePerUnit * ConversionRates.Where(x => x.Key == input.Currency).First().Value;
+            return pricePerUnitInKg * ConversionRates.Where(x => x.Key == input.Currency).First().Value;
         }
 
 
         public double ConvertToKg(Material input)
         {
-            return input.PricePerUnit / UnitConversionRates.Where(x => x.Key == input.Unit).First().Value;
+            return input.PricePerUnit * UnitConversionRates.Where(x => x.Key == input.Unit).First().Value;
         }
 
         public override int Compare(Material firstElem, Material secondElem)
@@ -47,10 +47,10 @@ namespace LegoCaseLogic.Models.Comparers
             mat2PriceInDkkPerKg = ConvertToDKK(secondElem, mat2PriceInDkkPerKg);
 
             if (mat1PriceInDkkPerKg < mat2PriceInDkkPerKg)
-                return 1;
+                return -1;
 
             if (mat1PriceInDkkPerKg > mat2PriceInDkkPerKg)
-                return -1;
+                return 1;
 
             return 0;
         }
