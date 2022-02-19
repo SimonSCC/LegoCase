@@ -133,8 +133,8 @@ namespace LegoCaseUI.ViewModels
                 return;
             }
             List<Material> materialByName = _materialFilter.GetMaterialsByName(matName);
-            _materialFilter.SortByBestChoice(materialByName);
-            BestOverallChoice = new VendorWithMaterial(materialByName[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == materialByName[0].VendorID).First());
+            List<Material> result = _materialFilter.SortByBestChoice(materialByName, MaterialVendorDataObj.Vendors);
+            BestOverallChoice = new VendorWithMaterial(result[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == result[0].VendorID).First());
         }
 
 
