@@ -43,7 +43,16 @@ Could be:
 
 
 Further development would include API connection to retrieve actual exchange rates.
-Also include in display a uniform value for easier manual comparison.
+
+Include in display a uniform value for easier manual comparison.
+
+Create SortByBestChoice Settings class, to be able to paramentarize melting values and whether
+to consider eco friendly and so on.
+
+Could also improve SortByBestChoice method to not consider Eco friendly as a neccesity.
+In cases of very cheap and very fast, could override the need for eco friendly.
+
+
 
 
         
