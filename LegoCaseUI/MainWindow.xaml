@@ -29,7 +29,11 @@
                     <TextBlock Text="{Binding FastestMaterialFromVendor}"></TextBlock>
                 </Border>
 
-                <TextBlock Text="Best overall choice: "></TextBlock>
+                <TextBlock Text="Best overall vendor choice, melting point 200C - 300C: "></TextBlock>
+                <Border Padding="10" BorderThickness="1" BorderBrush="Black">
+                    <TextBlock Text="{Binding BestOverallChoice}"></TextBlock>
+                </Border>
+                
             </StackPanel>
         </ScrollViewer>
 

@@ -17,7 +17,7 @@ namespace LegoCaseLogic.Models
         public CurrencyEnumeration Currency { get; }
         public UnitEnumeration Unit { get;  }
         public int MeltingPoint { get => materialSource.MeltingPoint; }
-        public string TempUnit { get => materialSource.TempUnit; }
+        public TempUnitEnumeration TempUnit { get; }
         public int DeliveryTimeDays { get => materialSource.DeliveryTimeDays; }
         private MaterialSource materialSource { get; }
 
@@ -27,6 +27,7 @@ namespace LegoCaseLogic.Models
             materialSource = source;
             Currency = Enum.Parse<CurrencyEnumeration>(source.Currency);
             Unit = Enum.Parse<UnitEnumeration>(source.Unit);
+            TempUnit = Enum.Parse<TempUnitEnumeration>(source.TempUnit);
 
         }
 
@@ -43,6 +44,12 @@ namespace LegoCaseLogic.Models
         {
             kg,
             lbs
+        }
+
+        public enum TempUnitEnumeration
+        {
+            C,
+            F
         }
 
         public override string ToString()

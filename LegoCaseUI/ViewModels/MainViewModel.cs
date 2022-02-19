@@ -44,6 +44,19 @@ namespace LegoCaseUI.ViewModels
         }
 
 
+        private VendorWithMaterial bestOverallChoice;
+
+        public VendorWithMaterial BestOverallChoice
+        {
+            get { return bestOverallChoice; }
+            set
+            {
+                bestOverallChoice = value;
+                OnPropertyChanged(nameof(BestOverallChoice));
+            }
+        }
+
+
 
 
         private readonly JsonService _jsonService;
@@ -53,6 +66,7 @@ namespace LegoCaseUI.ViewModels
         public ICommand FilterByVendorIDCommand { get; private set; }
         public ICommand GetCheapestMaterialCommand { get; private set; }
         public ICommand GetFastestMaterialCommand { get; private set; }
+        public ICommand GetOverallBestMaterialCommand { get; private set; }
         public MainViewModel()
         {
             _jsonService = new JsonService();
@@ -65,9 +79,11 @@ namespace LegoCaseUI.ViewModels
             FilterByVendorIDCommand = new FilterMaterialsCommand(this, FilterByVendorId);
             GetCheapestMaterialCommand = new DelegateCommand(GetCheapestMaterial);
             GetFastestMaterialCommand = new DelegateCommand(GetFastestMaterial);
-
+            GetOverallBestMaterialCommand = new DelegateCommand(GetOverallBestMaterial);
 
         }
+
+
 
         private List<Material> FilterByVendorId(object parameter)
         {
@@ -105,6 +121,20 @@ namespace LegoCaseUI.ViewModels
             List<Material> materialByName = _materialFilter.GetMaterialsByName(matName);
             _materialFilter.SortByFastestDelivery(materialByName);
             FastestMaterialFromVendor = new VendorWithMaterial(materialByName[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == materialByName[0].VendorID).First());
+        }
+
+        private void GetOverallBestMaterial(object parameter)
+        {
+            string matName = (string)parameter;
+
+            if (String.IsNullOrEmpty(matName))
+            {
+                Console.WriteLine("Material name is null");
+                return;
+            }
+            List<Material> materialByName = _materialFilter.GetMaterialsByName(matName);
+            _materialFilter.SortByBestChoice(materialByName);
+            BestOverallChoice = new VendorWithMaterial(materialByName[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == materialByName[0].VendorID).First());
         }
 
 
