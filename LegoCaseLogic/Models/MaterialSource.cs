@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LegoCaseLogic.Models
+﻿namespace LegoCaseLogic.Models
 {
     public class MaterialSource
     {
@@ -18,13 +12,5 @@ namespace LegoCaseLogic.Models
         public int MeltingPoint { get; set; }
         public string TempUnit { get; set; }
         public int DeliveryTimeDays { get; set; }
-
-
-        public MaterialSource()
-        {
-        }
-
-
-        
     }
 }

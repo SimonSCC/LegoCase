@@ -1,11 +1,5 @@
-﻿using LegoCaseLogic.Models;
-using LegoCaseLogic.Services;
-using System;
+﻿using LegoCaseLogic.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace LegoCaseLogic.Models.Comparers
 {
     public class MaterialPriceComparer : Comparer<Material>

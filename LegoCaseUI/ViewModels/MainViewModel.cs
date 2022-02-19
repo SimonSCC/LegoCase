@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LegoCaseUI.ViewModels
@@ -56,44 +54,44 @@ namespace LegoCaseUI.ViewModels
             }
         }
 
-
-
-
-        private readonly JsonService _jsonService;
-        private readonly MaterialFilters _materialFilter;
-
-
         public ICommand FilterByVendorIDCommand { get; private set; }
         public ICommand GetCheapestMaterialCommand { get; private set; }
         public ICommand GetFastestMaterialCommand { get; private set; }
         public ICommand GetOverallBestMaterialCommand { get; private set; }
+
+
+        private readonly JsonService _jsonService;
+        private readonly MaterialFilters _materialFilter;
         public MainViewModel()
         {
-            _jsonService = new JsonService();
+            _jsonService = new();
             MaterialsFiltered = new();
 
             MaterialVendorDataObj = new MaterialVendorData(_jsonService.JSONToObjList<MaterialVendorDataSource>("material_vendor_data.json"));
             _materialFilter = new(MaterialVendorDataObj.Materials);
 
             AllMaterialNames = _materialFilter.GetOneOfEachMaterialName();
-            FilterByVendorIDCommand = new FilterMaterialsCommand(this, FilterByVendorId);
+            FilterByVendorIDCommand = new DelegateCommand(FilterByVendorId);
             GetCheapestMaterialCommand = new DelegateCommand(GetCheapestMaterial);
             GetFastestMaterialCommand = new DelegateCommand(GetFastestMaterial);
             GetOverallBestMaterialCommand = new DelegateCommand(GetOverallBestMaterial);
 
         }
-
-
-
-        private List<Material> FilterByVendorId(object parameter)
+        private void FilterByVendorId(object parameter)
         {
             VendorSource vendor = (VendorSource)parameter;
             if (vendor == null || vendor.ID == 0)
             {
                 Console.WriteLine("vendor or ID is null");
-                return default;
+                return;
             }
-            return _materialFilter.FilterByVendorId(vendor.ID);
+
+            //Clear observable collection and add to it, to trigger INotifyCollectionChanged.
+            MaterialsFiltered.Clear();
+            foreach (Material mat in _materialFilter.FilterByVendorId(vendor.ID))
+            {
+                MaterialsFiltered.Add(mat);
+            }
         }
 
         private void GetCheapestMaterial(object parameter)
@@ -136,7 +134,5 @@ namespace LegoCaseUI.ViewModels
             List<Material> result = _materialFilter.SortByBestChoice(materialByName, MaterialVendorDataObj.Vendors);
             BestOverallChoice = new VendorWithMaterial(result[0], MaterialVendorDataObj.Vendors.Where(x => x.ID == result[0].VendorID).First());
         }
-
-
     }
 }

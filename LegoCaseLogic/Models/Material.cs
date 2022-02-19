@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LegoCaseLogic.Models
 {
@@ -28,7 +24,6 @@ namespace LegoCaseLogic.Models
             Currency = Enum.Parse<CurrencyEnumeration>(source.Currency);
             Unit = Enum.Parse<UnitEnumeration>(source.Unit);
             TempUnit = Enum.Parse<TempUnitEnumeration>(source.TempUnit);
-
         }
 
         
